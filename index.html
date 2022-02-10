@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JavaScript Code Quiz</title>
-    <link rel="stylesheet" href="/assets/css/style.css" />
-  </head>
-  <body>
-    <div>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+<body>
+        <div class="top">
+            <div class="highscore">
+                <p><a href="">View high scores</a></p>
+            </div>
+            <div class="timer">
+                <p>Time</p>
+            </div>
 
-        <header>
-            <h1>JavaScript Code Quiz</h1>
-        </header>
+        </div>
 
-        <main>
-            <p>
-                Try to answer the following questions to code-related questions within the time limit. Incorrect answers will penalize your score and reduce your time by 10 seconds!
-            </p>
-            <div>
+    <main class="container">
+
+        <div class="intro-container" id="intro-container">
+            <header>
+                <h1>JavaScript Code Quiz</h1>
+            </header>
+            <p>Try to answer the following questions to code-related questions within the time limit. Incorrect answers will penalize your score and reduce your time by 10 seconds!</p>
+            <div class="start-btn">
                 <button id="start" class="btn">Start Quiz</button>
             </div>
-        </main>
-    </div>
-    <script src="/assets/js/script.js"></script>
-  </body>
+        </div>
+
+        <div class="main-container" id="main-container">
+            <div class="question-container" id="question-container">
+                <h2 class="question" id="question"></h2>
+            </div>
+            <div id="answer-buttons" class="answer-buttons">
+                <button id="option1" class="answer-btn btn">Answer 1</button>
+                <button id="option2" class="answer-btn btn">Answer 2</button>
+                <button id="option3" class="answer-btn btn">Answer 3</button>
+                <button id="option4" class="answer-btn btn">Answer 4</button>
+            </div>
+        </div>
+
+        <div class="end-container" id="end-container">
+
+        </div>
+
+    </main>
+
+    <footer>
+
+    </footer>
+    <script src="./assets/js/script.js"></script>
+</body>
 </html>
