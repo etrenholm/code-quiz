@@ -10,12 +10,11 @@
 <body>
         <div class="top">
             <div class="highscore">
-                <p><a href="">View high scores</a></p>
+                <p><a href="highscores.html">View high scores</a></p>
             </div>
             <div class="timer">
-                <p>Time</p>
+                <p id=timer>Time Left: 50</p>
             </div>
-
         </div>
 
     <main class="container">
@@ -45,7 +44,13 @@
 
         <!-- end screen -->
         <div class="end-container" id="end-container">
-
+            <h2>All done!</h2>
+            <p class="final-score">Your final score is ...</p>
+            <div id="score-container" class="score-container">
+                <p class="final-score">Enter Initials:</p>
+                <input class="initial-input"></input>
+                <button id="submit" class="submit-btn btn">Submit</button>
+            </div>
         </div>
 
     </main>
