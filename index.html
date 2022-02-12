@@ -8,21 +8,21 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body>
-        <div class="top">
-            <div class="highscore">
-                <p><a href="highscores.html">View high scores</a></p>
-            </div>
-            <div class="timer">
-                <p id=timer>Time Left: 50</p>
-            </div>
+    <header class="top">
+        <div class="highscore">
+            <p><a href="highscores.html">View high scores</a></p>
         </div>
+        <div class="timer">
+            <p id=timer>Time Left: 50</p>
+        </div>
+    </header>
 
     <main class="container">
         <!-- intro screen -->
         <div class="intro-container" id="intro-container">
-            <header>
+            <div>
                 <h1>JavaScript Code Quiz</h1>
-            </header>
+            </div>
             <p>Try to answer the following questions to code-related questions within the time limit. Incorrect answers will penalize your score and reduce your time by 10 seconds!</p>
             <div class="start-btn">
                 <button id="start" class="btn">Start Quiz</button>
@@ -49,8 +49,13 @@
             <div id="score-container" class="score-container">
                 <p class="final-score">Enter Initials:</p>
                 <input class="initial-input"></input>
-                <button id="submit" class="submit-btn btn">Submit</button>
+                <button type="submit" id="submit" class="submit-btn btn">Submit</button>
             </div>
+        </div>
+
+        <!-- correct/incorrect -->
+        <div class="alert-container" id="alert-container">
+            <h3 id="result"></h3>
         </div>
 
     </main>
