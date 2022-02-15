@@ -35,22 +35,22 @@
                 <h2 class="question" id="question"></h2>
             </div>
             <div id="answer-buttons" class="answer-buttons">
-                <button id="option1" class="answer-btn btn">Answer 1</button>
-                <button id="option2" class="answer-btn btn">Answer 2</button>
-                <button id="option3" class="answer-btn btn">Answer 3</button>
-                <button id="option4" class="answer-btn btn">Answer 4</button>
+                <button id="option1" class="answer-btn btn"></button>
+                <button id="option2" class="answer-btn btn"></button>
+                <button id="option3" class="answer-btn btn"></button>
+                <button id="option4" class="answer-btn btn"></button>
             </div>
         </div>
 
         <!-- end screen -->
         <div class="end-container" id="end-container">
             <h2>All done!</h2>
-            <p class="final-score">Your final score is ...</p>
-            <div id="score-container" class="score-container">
+            <p class="final-score" id=final-score>Your final score is ...</p>
+                <form id="score-form" class="score-form">
                 <p class="final-score">Enter Initials:</p>
-                <input class="initial-input"></input>
-                <button type="submit" id="submit" class="submit-btn btn">Submit</button>
-            </div>
+                <input type="text" class="initial-input" name="initial-input"></input>
+                <button id="submit" class="submit-btn btn">Submit</button>
+                </form>
         </div>
 
         <!-- correct/incorrect -->

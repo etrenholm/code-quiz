@@ -8,12 +8,6 @@
     padding: 100px 130px ;
 }
 
-/* .main-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
-
 .top {
     padding: 20px;
     display: flex;
@@ -51,11 +45,11 @@ li {
 
 li {
     text-align: left;
-    background-color: rgb(249, 215, 253);
+    background-color: rgb(253, 240, 255);
 }
 
 li:nth-child(even) {
-    background-color: rgb(255, 233, 255);
+    background-color: rgb(255, 248, 255);
 }
 
 .final-score {
@@ -94,11 +88,9 @@ a:hover {
     padding: 20px;
 }
 
-
 .answer-btn {
     display: block;
     margin-bottom: 10px;
-    width: 300px;
     text-align: left;
 }
 
@@ -107,7 +99,7 @@ a:hover {
     margin-bottom: 5px;
 }
 
-.score-container {
+.score-form {
     display: flex;
     justify-content: start;
     align-items: center;
