@@ -1,4 +1,5 @@
 // Start button
+var currentQuestionIndex = 0;
 var timeLeft = 49; 
 var startBtn = document.querySelector("#start");
 startBtn.addEventListener("click", startQuiz);
@@ -10,22 +11,14 @@ var endContainerEl = document.querySelector("#end-container");
 var timerEl = document.querySelector("#timer");
 var resultEl = document.querySelector("#result");
 var answerButtonsEl = document.querySelector("#answer-buttons");
-var questionEl = document.querySelector("#question");
 var finalScoreEl = document.querySelector("#final-score");
 var scoreFormEl = document.querySelector("#score-form")
 var highScoreEl = document.querySelector("#highscore-list")
-
-var answerButtonEl1 = document.querySelector("#option1");
-answerButtonEl1.addEventListener("click", ()=>checkAnswer("option1"));
-var answerButtonEl2 = document.querySelector("#option2");
-answerButtonEl2.addEventListener("click", ()=>checkAnswer("option2"));
-var answerButtonEl3 = document.querySelector("#option3");
-answerButtonEl3.addEventListener("click", ()=>checkAnswer("option3"));
-var answerButtonEl4 = document.querySelector("#option4");
-answerButtonEl4.addEventListener("click", ()=>checkAnswer("option4"));
+var highscoreContainerEl = document.querySelector("#highscore-container")
 
 mainContainerEl.setAttribute("style", "display:none;"); // hide quiz page
 endContainerEl.setAttribute("style", "display:none;"); // hide end page
+highscoreContainerEl.setAttribute("style", "display:none;"); // hide highscore form
 
 
 // Questions array
@@ -82,6 +75,16 @@ var quizQuestions = [
     }
 ];
 
+var questionEl = document.querySelector("#question");
+var answerButtonEl1 = document.querySelector("#option1");
+answerButtonEl1.addEventListener("click", ()=>checkAnswer("option1"));
+var answerButtonEl2 = document.querySelector("#option2");
+answerButtonEl2.addEventListener("click", ()=>checkAnswer("option2"));
+var answerButtonEl3 = document.querySelector("#option3");
+answerButtonEl3.addEventListener("click", ()=>checkAnswer("option3"));
+var answerButtonEl4 = document.querySelector("#option4");
+answerButtonEl4.addEventListener("click", ()=>checkAnswer("option4"));
+
 // When button is clicked, start the quiz
 function startQuiz() {
 
@@ -90,6 +93,7 @@ function startQuiz() {
     startTimer();
     showQuestions();
 }
+
 
 // When button is clicked, start the timer
 function startTimer() {
@@ -109,25 +113,22 @@ function startTimer() {
 
 };
 
+
+
 // show the questions
 function showQuestions() {
-
-    questionsIndex = 0;
-
-    for (var i = 0; i < quizQuestions.length; i++) {
-        questionEl.textContent = quizQuestions[questionsIndex].question;
-        answerButtonEl1.textContent = quizQuestions[questionsIndex].options[0];
-        answerButtonEl2.textContent  = quizQuestions[questionsIndex].options[1];
-        answerButtonEl3.textContent  = quizQuestions[questionsIndex].options[2];
-        answerButtonEl4.textContent = quizQuestions[questionsIndex].options[3];
-    }
-
+    console.log(currentQuestionIndex)
+    questionEl.textContent = quizQuestions[currentQuestionIndex].question;
+    answerButtonEl1.textContent= quizQuestions[currentQuestionIndex].options[0];
+    answerButtonEl2.textContent = quizQuestions[currentQuestionIndex].options[1];
+    answerButtonEl3.textContent = quizQuestions[currentQuestionIndex].options[2];
+    answerButtonEl4.textContent = quizQuestions[currentQuestionIndex].options[3];
 };
 
 function checkAnswer(answer) {
 
     // When question is answered correctly
-    if(answer === quizQuestions[questionsIndex].answer) {
+    if(answer === quizQuestions[currentQuestionIndex].answer) {
         resultEl.textContent = "Correct!" // alert that question was correct
     }
     // When question is answered incorrectly
@@ -135,14 +136,17 @@ function checkAnswer(answer) {
         resultEl.textContent = "Wrong!" // alert that question was wrong
         timeLeft -= 10; // subtract from the clock
     }
+    currentQuestionIndex++
 
     // When a question is answered, present another question
-    if(questionsIndex < quizQuestions.length) {
+    if(currentQuestionIndex < quizQuestions.length) {
+        console.log("if")
         showQuestions()
     }
 
     // When all questions are answered OR the timer reaches 0, game is over
     else {
+        console.log("else")
         endScreen()
     }
 }
@@ -159,6 +163,8 @@ function endScreen() {
 
 }
 
+// submit score screen
+// When the game is over, save initials and score in local storage
 function submitScore(event) {
     event.preventDefault();
 
@@ -166,6 +172,7 @@ function submitScore(event) {
     finalScoreEl.textContent = "Your final score is " + finalScore + "!";
     var initialInput = document.querySelector("input[name='initial-input']").value;
 
+    var savedScore = [];
     var savedScore = {
         initials: initialInput,
         score: finalScore
@@ -175,8 +182,6 @@ function submitScore(event) {
 
 }
 
-
-// When the game is over, save initials and score in local storage
 function saveScore(savedScore) {
     console.log("worked")
     localStorage.setItem("savedScore", JSON.stringify(savedScore))
@@ -184,7 +189,7 @@ function saveScore(savedScore) {
 
 // When page is reoloaded, old score reloads from local storage
 function loadScore() {
-    console.log("worked")
+
     var listItemEl = document.createElement("li");
     highScoreEl.appendChild(listItemEl)
     listItemEl.textContent = "text";
@@ -197,6 +202,7 @@ function loadScore() {
         }
 
         savedScore = JSON.parse(savedScore);
+        console.log(savedScore)
     }
 
 

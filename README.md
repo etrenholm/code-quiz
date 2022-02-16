@@ -31,7 +31,7 @@ Project was updated using:
 * 
 
 
-### STEP 3. - FINALZING
+### STEP 3. - FINALIZING
 
 
 
