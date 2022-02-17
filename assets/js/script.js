@@ -18,7 +18,7 @@ var highscoreContainerEl = document.querySelector("#highscore-container")
 
 mainContainerEl.setAttribute("style", "display:none;"); // hide quiz page
 endContainerEl.setAttribute("style", "display:none;"); // hide end page
-highscoreContainerEl.setAttribute("style", "display:none;"); // hide highscore form
+
 
 
 // Questions array
@@ -94,7 +94,6 @@ function startQuiz() {
     showQuestions();
 }
 
-
 // When button is clicked, start the timer
 function startTimer() {
 
@@ -112,8 +111,6 @@ function startTimer() {
     }, 1000)
 
 };
-
-
 
 // show the questions
 function showQuestions() {
@@ -140,13 +137,11 @@ function checkAnswer(answer) {
 
     // When a question is answered, present another question
     if(currentQuestionIndex < quizQuestions.length) {
-        console.log("if")
         showQuestions()
     }
 
     // When all questions are answered OR the timer reaches 0, game is over
     else {
-        console.log("else")
         endScreen()
     }
 }
@@ -158,6 +153,7 @@ function endScreen() {
     mainContainerEl.setAttribute("style", "display:none;"); // hide quiz page
     endContainerEl.setAttribute("style", "display:block;"); // show end page
     resultEl.setAttribute("style", "display:none;") // hide results
+    
     var finalScore = timeLeft;
     finalScoreEl.textContent = "Your final score is " + finalScore + "!";
 
@@ -165,45 +161,33 @@ function endScreen() {
 
 // submit score screen
 // When the game is over, save initials and score in local storage
+
+var savedScoreList = []
+
 function submitScore(event) {
     event.preventDefault();
 
     var finalScore = timeLeft;
-    finalScoreEl.textContent = "Your final score is " + finalScore + "!";
     var initialInput = document.querySelector("input[name='initial-input']").value;
 
-    var savedScore = [];
+    if (initialInput === "") {
+        alert("You need to fill out the form!");
+        return false;
+      }
+
     var savedScore = {
         initials: initialInput,
         score: finalScore
         }
 
-    saveScore(savedScore);
+    this.reset();
 
+    savedScoreList.push(savedScore)
+    localStorage.setItem("scoreListObj", JSON.stringify(savedScoreList))
 }
 
-function saveScore(savedScore) {
-    console.log("worked")
-    localStorage.setItem("savedScore", JSON.stringify(savedScore))
-}
-
-// When page is reoloaded, old score reloads from local storage
-function loadScore() {
-
-    var listItemEl = document.createElement("li");
-    highScoreEl.appendChild(listItemEl)
-    listItemEl.textContent = "text";
-
-    var savedScore = localStorage.getItem("savedScore");
-
-    if (!savedScore) {
-        savedScore = [];
-        return false
-        }
-
-        savedScore = JSON.parse(savedScore);
-        console.log(savedScore)
-    }
+// if savedScore is 0, add
+// if something is already in savedScore, add to the value and show both
 
 
 // submit score

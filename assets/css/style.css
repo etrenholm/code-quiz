@@ -94,7 +94,8 @@ a:hover {
     text-align: left;
 }
 
-.highscore-btn {
+.highscore-btn,
+.clear-btn {
     margin-top: 20px;
     margin-bottom: 5px;
 }
