@@ -1,9 +1,12 @@
-// Start button
+// starting variables
 var currentQuestionIndex = 0;
-var timeLeft = 49; 
+var timeLeft = 49;
+
+// start button
 var startBtn = document.querySelector("#start");
 startBtn.addEventListener("click", startQuiz);
 
+// query selectors
 var introContainerEl = document.querySelector("#intro-container");
 var mainContainerEl = document.querySelector("#main-container");
 var questionContainerEl = document.querySelector("#question-container");
@@ -16,12 +19,11 @@ var scoreFormEl = document.querySelector("#score-form")
 var highScoreEl = document.querySelector("#highscore-list")
 var highscoreContainerEl = document.querySelector("#highscore-container")
 
+// hide items upon loading the page
 mainContainerEl.setAttribute("style", "display:none;"); // hide quiz page
 endContainerEl.setAttribute("style", "display:none;"); // hide end page
 
-
-
-// Questions array
+// questions array
 var quizQuestions = [
     {
         question: "What operator is used to assign a value to a declared variable?",
@@ -75,6 +77,7 @@ var quizQuestions = [
     }
 ];
 
+// quiz questions query selectors and event listeners
 var questionEl = document.querySelector("#question");
 var answerButtonEl1 = document.querySelector("#option1");
 answerButtonEl1.addEventListener("click", ()=>checkAnswer("option1"));
@@ -85,38 +88,40 @@ answerButtonEl3.addEventListener("click", ()=>checkAnswer("option3"));
 var answerButtonEl4 = document.querySelector("#option4");
 answerButtonEl4.addEventListener("click", ()=>checkAnswer("option4"));
 
-// When button is clicked, start the quiz
+// go to start quiz screen
 function startQuiz() {
 
     introContainerEl.setAttribute("style", "display:none;"); // hide start page
     mainContainerEl.setAttribute("style", "display:block;"); // display quiz page
-    startTimer();
-    showQuestions();
+    timerSet(); // When button is clicked, start the quiz
+    showQuestions(); // When button is clicked, start the timer
 }
 
-// When button is clicked, start the timer
-function startTimer() {
+var timeInterval;
+    function timerSet() {
+        timeInterval = setInterval(startTimer, 1000);
 
-    var timeInterval = setInterval(function() {
+    function startTimer() {
+        // if there is still time left, continue to decrement and show in corner
         if(timeLeft>0) {
             timerEl.innerHTML = "Time Left: " + timeLeft;
             timeLeft--
         }
         else {
+            // if time runs out, clear stop the timer and show end time
             clearInterval(timeInterval);
             timerEl.innerHTML = "Time Left: " + timeLeft;
             // go to end screen
             endScreen();
         }
-    }, 1000)
-
+    }
 };
 
 // show the questions
 function showQuestions() {
     console.log(currentQuestionIndex)
     questionEl.textContent = quizQuestions[currentQuestionIndex].question;
-    answerButtonEl1.textContent= quizQuestions[currentQuestionIndex].options[0];
+    answerButtonEl1.textContent = quizQuestions[currentQuestionIndex].options[0];
     answerButtonEl2.textContent = quizQuestions[currentQuestionIndex].options[1];
     answerButtonEl3.textContent = quizQuestions[currentQuestionIndex].options[2];
     answerButtonEl4.textContent = quizQuestions[currentQuestionIndex].options[3];
@@ -137,32 +142,32 @@ function checkAnswer(answer) {
 
     // When a question is answered, present another question
     if(currentQuestionIndex < quizQuestions.length) {
-        showQuestions()
+        showQuestions();
     }
-
-    // When all questions are answered OR the timer reaches 0, game is over
+    // When all questions are answered, end the game
     else {
-        endScreen()
+        endScreen();
     }
 }
 
-// End screen
+// go to end screen
 function endScreen() {
 
-    introContainerEl.setAttribute("style", "display:none;"); // hide start page
     mainContainerEl.setAttribute("style", "display:none;"); // hide quiz page
     endContainerEl.setAttribute("style", "display:block;"); // show end page
     resultEl.setAttribute("style", "display:none;") // hide results
     
     var finalScore = timeLeft;
+    clearInterval(timeInterval);
+    timerEl.innerHTML = "Time Left: " + timeLeft;
     finalScoreEl.textContent = "Your final score is " + finalScore + "!";
 
 }
 
-// submit score screen
-// When the game is over, save initials and score in local storage
 
-var savedScoreList = []
+// When the game is over, save initials and score in local storage
+// if something is already in the score list, add to the value and show both
+var savedScoreList = JSON.parse(localStorage.getItem("scoreListObj")) || [];
 
 function submitScore(event) {
     event.preventDefault();
@@ -170,9 +175,13 @@ function submitScore(event) {
     var finalScore = timeLeft;
     var initialInput = document.querySelector("input[name='initial-input']").value;
 
+    // if text area is empty, show alert
     if (initialInput === "") {
         alert("You need to fill out the form!");
         return false;
+      }
+      else {
+          alert("Your score has been submitted!")
       }
 
     var savedScore = {
@@ -182,13 +191,16 @@ function submitScore(event) {
 
     this.reset();
 
+    // push list into saved score object
+    // sort list by score
     savedScoreList.push(savedScore)
+    savedScoreList.sort((a,b) => {
+        return b.score - a.score;
+    })
+
+    // convert to string
     localStorage.setItem("scoreListObj", JSON.stringify(savedScoreList))
 }
-
-// if savedScore is 0, add
-// if something is already in savedScore, add to the value and show both
-
 
 // submit score
 scoreFormEl.addEventListener("submit", submitScore)
