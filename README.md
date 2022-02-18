@@ -11,11 +11,12 @@
 Create a timed quiz on JavaScript fundamentals that stores high scores.
 	
 ## Technologies
-Project was updated using:
 * VS Code
 * HTML
 * CSS
 * JavaScript
+* Web APIs
+* DOM
 * Terminal (Mac)
 * Git
 * GitHub
@@ -63,7 +64,8 @@ Project was updated using:
 * https://github.com/etrenholm/code-quiz
 * https://etrenholm.github.io/code-quiz
 
-![mockup](./)
+![mockup](./assets/images/QuizPage.png)
+![mockup](./assets/images/HighscoresPage.png)
 
 ## Credit
 

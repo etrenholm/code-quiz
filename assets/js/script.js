@@ -1,12 +1,12 @@
-// starting variables
+// Starting variables
 var currentQuestionIndex = 0;
 var timeLeft = 49;
 
-// start button
+// Start button
 var startBtn = document.querySelector("#start");
 startBtn.addEventListener("click", startQuiz);
 
-// query selectors
+// Query selectors
 var introContainerEl = document.querySelector("#intro-container");
 var mainContainerEl = document.querySelector("#main-container");
 var questionContainerEl = document.querySelector("#question-container");
@@ -15,15 +15,15 @@ var timerEl = document.querySelector("#timer");
 var resultEl = document.querySelector("#result");
 var answerButtonsEl = document.querySelector("#answer-buttons");
 var finalScoreEl = document.querySelector("#final-score");
-var scoreFormEl = document.querySelector("#score-form")
-var highScoreEl = document.querySelector("#highscore-list")
-var highscoreContainerEl = document.querySelector("#highscore-container")
+var scoreFormEl = document.querySelector("#score-form");
+var highScoreEl = document.querySelector("#highscore-list");
+var highscoreContainerEl = document.querySelector("#highscore-container");
 
-// hide items upon loading the page
+// Hide items upon loading the page
 mainContainerEl.setAttribute("style", "display:none;"); // hide quiz page
 endContainerEl.setAttribute("style", "display:none;"); // hide end page
 
-// questions array
+// Questions array
 var quizQuestions = [
     {
         question: "What operator is used to assign a value to a declared variable?",
@@ -77,7 +77,7 @@ var quizQuestions = [
     }
 ];
 
-// quiz questions query selectors and event listeners
+// Quiz questions, query selectors, and event listeners
 var questionEl = document.querySelector("#question");
 var answerButtonEl1 = document.querySelector("#option1");
 answerButtonEl1.addEventListener("click", ()=>checkAnswer("option1"));
@@ -88,7 +88,7 @@ answerButtonEl3.addEventListener("click", ()=>checkAnswer("option3"));
 var answerButtonEl4 = document.querySelector("#option4");
 answerButtonEl4.addEventListener("click", ()=>checkAnswer("option4"));
 
-// go to start quiz screen
+// Go to start quiz screen
 function startQuiz() {
 
     introContainerEl.setAttribute("style", "display:none;"); // hide start page
@@ -97,13 +97,14 @@ function startQuiz() {
     showQuestions(); // When button is clicked, start the timer
 }
 
+// Setting timer
 var timeInterval;
     function timerSet() {
         timeInterval = setInterval(startTimer, 1000);
 
     function startTimer() {
         // if there is still time left, continue to decrement and show in corner
-        if(timeLeft>0) {
+        if (timeLeft>0) {
             timerEl.innerHTML = "Time Left: " + timeLeft;
             timeLeft--
         }
@@ -111,15 +112,13 @@ var timeInterval;
             // if time runs out, clear stop the timer and show end time
             clearInterval(timeInterval);
             timerEl.innerHTML = "Time Left: " + timeLeft;
-            // go to end screen
-            endScreen();
+            endScreen(); // go to end screen
         }
     }
 };
 
-// show the questions
+// Show the questions
 function showQuestions() {
-    console.log(currentQuestionIndex)
     questionEl.textContent = quizQuestions[currentQuestionIndex].question;
     answerButtonEl1.textContent = quizQuestions[currentQuestionIndex].options[0];
     answerButtonEl2.textContent = quizQuestions[currentQuestionIndex].options[1];
@@ -127,16 +126,17 @@ function showQuestions() {
     answerButtonEl4.textContent = quizQuestions[currentQuestionIndex].options[3];
 };
 
+// Check question answer against selected answer
 function checkAnswer(answer) {
 
     // When question is answered correctly
-    if(answer === quizQuestions[currentQuestionIndex].answer) {
-        resultEl.textContent = "Correct!" // alert that question was correct
+    if (answer === quizQuestions[currentQuestionIndex].answer) {
+        resultEl.textContent = "Correct!" // Alert that question was correct
     }
     // When question is answered incorrectly
     else {
-        resultEl.textContent = "Wrong!" // alert that question was wrong
-        timeLeft -= 10; // subtract from the clock
+        resultEl.textContent = "Wrong!" // Alert that question was wrong
+        timeLeft -= 10; // Subtract from the clock
     }
     currentQuestionIndex++
 
@@ -150,7 +150,7 @@ function checkAnswer(answer) {
     }
 }
 
-// go to end screen
+// Go to end screen
 function endScreen() {
 
     mainContainerEl.setAttribute("style", "display:none;"); // hide quiz page
@@ -164,9 +164,8 @@ function endScreen() {
 
 }
 
-
 // When the game is over, save initials and score in local storage
-// if something is already in the score list, add to the value and show both
+// If something is already in the score list, add to the value and show both
 var savedScoreList = JSON.parse(localStorage.getItem("scoreListObj")) || [];
 
 function submitScore(event) {
@@ -175,7 +174,7 @@ function submitScore(event) {
     var finalScore = timeLeft;
     var initialInput = document.querySelector("input[name='initial-input']").value;
 
-    // if text area is empty, show alert
+    // If text area is empty, show alert
     if (initialInput === "") {
         alert("You need to fill out the form!");
         return false;
@@ -191,16 +190,16 @@ function submitScore(event) {
 
     this.reset();
 
-    // push list into saved score object
-    // sort list by score
+    // Push list into saved score object
+    // Sort list by score
     savedScoreList.push(savedScore)
     savedScoreList.sort((a,b) => {
         return b.score - a.score;
     })
 
-    // convert to string
+    // Convert to string
     localStorage.setItem("scoreListObj", JSON.stringify(savedScoreList))
 }
 
-// submit score
+// Submit score
 scoreFormEl.addEventListener("submit", submitScore)

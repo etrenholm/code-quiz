@@ -8,7 +8,6 @@ var li3 = document.createElement("li")
 var li4 = document.createElement("li")
 var li5 = document.createElement("li")
 
-
 // Append ordered list
 listContainerEl.appendChild(listEl)
 
@@ -24,8 +23,6 @@ function clearScores() {
     listEl.removeChild(li4);
     listEl.removeChild(li5);
 }
-
-
 
 // When page is reoloaded, old score reloads from local storage
 var savedScoreList = JSON.parse(localStorage.getItem("scoreListObj")) || [];
@@ -54,6 +51,3 @@ var initials = savedScoreList[4].initials;
 var score = savedScoreList[4].score
 listEl.appendChild(li5);
 li5.textContent = initials + ": " + score;
-
-
-
