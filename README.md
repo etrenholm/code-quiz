@@ -57,7 +57,8 @@ Create a timed quiz on JavaScript fundamentals that stores high scores.
 * Created a function to clear the scores, which removes the scores from local storage and removes the children of the ordered list on the page.
 
 ### STEP 6. - FINALIZING
-
+* Made various commits throughout process to save progress
+* Tested functionality in GitHub pages
 
 ## Results
 
